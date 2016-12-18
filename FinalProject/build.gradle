@@ -29,7 +29,7 @@ task startDevelopmentServer {
 
 task allTests {
     group "other"
-    description "Runs all tests"
+    description "includes all tests"
     dependsOn ":app:connectedAndroidTest"
     mustRunAfter "startDevelopmentServer"
     doLast {
