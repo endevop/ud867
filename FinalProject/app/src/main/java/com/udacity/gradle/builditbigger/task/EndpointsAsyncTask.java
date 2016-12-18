@@ -1,11 +1,9 @@
 package com.udacity.gradle.builditbigger.task;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.example.app.backend.myApi.MyApi;
-import com.example.libs.android.jokesactivitylibrary.JokeActivity;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -47,9 +45,12 @@ public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
     @Override
     protected void onPostExecute(String joke) {
-        Intent intent = new Intent(context, JokeActivity.class);
-        intent.putExtra(Intent.EXTRA_TEXT, joke);
-        context.startActivity(intent);
+        ((Callback) context).putJoke(joke);
+    }
+
+    // callback to transfer the data
+    public interface Callback {
+        void putJoke(String joke);
     }
 }
 
