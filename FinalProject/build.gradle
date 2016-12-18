@@ -17,3 +17,43 @@ allprojects {
         jcenter()
     }
 }
+
+task startDevelopmentServer {
+    group "other"
+    description "Starts appengine"
+    dependsOn ":backend:appengineRun"
+    doLast {
+        println "Started development server"
+    }
+}
+
+task allTests {
+    group "other"
+    description "Runs all tests"
+    dependsOn ":app:connectedAndroidTest"
+    mustRunAfter "startDevelopmentServer"
+    doLast {
+        println "All tests completed"
+    }
+}
+
+task stopDevelopmentServer {
+    group "other"
+    description "Stops appengine"
+    dependsOn ":backend:appengineStop"
+    doLast {
+        println "Stopped development server"
+    }
+}
+
+task runAllTests {
+    group "verification"
+    description "Starts development server, runs all tests, stops development server"
+    dependsOn = ["startDevelopmentServer", "allTests"]
+    finalizedBy "stopDevelopmentServer"
+    doLast {
+        println "Finished running tests... now closing the development server"
+    }
+}
+
+

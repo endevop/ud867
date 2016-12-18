@@ -38,4 +38,6 @@ appengine {
         getClientLibsOnBuild = true
         getDiscoveryDocsOnBuild = true
     }
+    // prevents blocking in the 'runAllTests' task which starts the appengine, runs tests, and stops the engine
+    daemon = true
 }
